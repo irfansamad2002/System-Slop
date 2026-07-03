@@ -1,4 +1,5 @@
 using Project.Core.Health;
+using Project.Systems.Abilities.Data;
 using Project.Systems.Combat.Query;
 using Project.Systems.Effects;
 using System.Collections.Generic;
@@ -18,18 +19,14 @@ namespace Project.Systems.Combat
         private float _minFalloff;
 
         private bool _hasHit;
+        private AbilityImpactExecutor _impactExecutor;
+        private AbilityData _ability;
 
 
-
-        public void Init(List<EffectData> effects, float speed, float radius, LayerMask damageLayers, GameObject impactVFX, float minDistanceThreshold, float minFalloff)
+        public void Init(AbilityImpactExecutor impactExecutor , AbilityData ability)
         {
-            _effects = effects;
-            _speed = speed;
-            _explosionRadius = radius;
-            _damageLayers = damageLayers;
-            _minDistanceThreshold = minDistanceThreshold;
-            _minFalloff = minFalloff;
-            _impactVFX = impactVFX;
+            _impactExecutor = impactExecutor;
+            _ability = ability;
         }
 
         private void Update()
@@ -43,57 +40,65 @@ namespace Project.Systems.Combat
             _hasHit = true;
 
             //Debug.Log(other.name);
-            Explode();
+            var impactData = new ImpactData()
+            {
+                direction = transform.forward,
+                impactPoint = transform.position
+            };
+            Explode(impactData);
 
             SpawnDebugSphere(transform.position, _explosionRadius);
     
             Destroy(gameObject);
 
         }
-        private void Explode()
+        private void Explode(ImpactData impactData)
         {
+
             Vector3 explosionCenter = transform.position;
 
             SpawnImpactVFX(explosionCenter);
 
             var targets = AreaQuery.GetTargetsSphere(explosionCenter, _explosionRadius, _damageLayers);
-            
-            foreach (var target in targets)
-            {
 
-                ApplyExplosionImpact(target, explosionCenter);
-            }
+            _impactExecutor.ExecuteTargets(targets, _ability, impactData);
+
+            //foreach (var target in targets)
+            //{
+
+            //    ApplyExplosionImpact(target, explosionCenter);
+            //}
 
         }
 
-        private void ApplyExplosionImpact(GameObject target, Vector3 explosionCenter)
-        {
+        //private void ApplyExplosionImpact(GameObject target, Vector3 explosionCenter)
+        //{
           
-            float distance = Vector3.Distance(explosionCenter, target.GetComponent<Collider>().ClosestPoint(explosionCenter));
+        //    float distance = Vector3.Distance(explosionCenter, target.GetComponent<Collider>().ClosestPoint(explosionCenter));
 
-            if (distance <= _minDistanceThreshold)
-            {
-                distance = 0f; // treat as direct hit
-            }
+        //    if (distance <= _minDistanceThreshold)
+        //    {
+        //        distance = 0f; // treat as direct hit
+        //    }
 
-            float normalized = distance / _explosionRadius;
-            normalized = Mathf.Clamp01(normalized);
+        //    float normalized = distance / _explosionRadius;
+        //    normalized = Mathf.Clamp01(normalized);
 
-            float falloff = Mathf.Pow(1f - normalized, .5f); // quadratic falloff
-            falloff = Mathf.Max(falloff, _minFalloff); // ensure minimum effect
+        //    float falloff = Mathf.Pow(1f - normalized, .5f); // quadratic falloff
+        //    falloff = Mathf.Max(falloff, _minFalloff); // ensure minimum effect
 
-            var context = new AbilityTargetingData
-            {
-                targetPoint = explosionCenter, 
-                hasTargetPoint = true,
-                direction = transform.forward
-            };
-            foreach (var effect in _effects)
-            {
-                effect.Apply(target, context, falloff);
-            }
+        //    var context = new AbilityTargetingData
+        //    {
+        //        targetPoint = explosionCenter, 
+        //        hasTargetPoint = true,
+        //        direction = transform.forward
+        //    };
+        //    foreach (var effect in _effects)
+        //    {
+        //        effect.Apply(target, context, falloff);
+        //    }
                 
-        }
+        //}
 
 
         private void SpawnDebugSphere(Vector3 position, float radius)

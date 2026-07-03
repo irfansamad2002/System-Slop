@@ -1,5 +1,4 @@
 using Project.Systems.Abilities.Data;
-using Project.Systems.Abilities.Runtime;
 using Project.Systems.Combat;
 using UnityEngine;
 
@@ -23,14 +22,9 @@ public class ProjectileDelivery
 
         var projectile = projectileGO.GetComponent<Projectile>();
 
-        projectile.Init(ability.effects,
-            ability.deliverySettings.projectile.speed,
-            ability.impactSettings.radius,
-            ability.impactSettings.targetLayers,
-            ability.deliverySettings.impactVFX,
-            ability.deliverySettings.projectile.minDistanceThreshold,
-            ability.deliverySettings.projectile.minFalloff
-            );
+        projectile.Init(_executor, ability );
+
+
 
         Object.Destroy(projectileGO, ability.deliverySettings.projectile.lifetime);
     }

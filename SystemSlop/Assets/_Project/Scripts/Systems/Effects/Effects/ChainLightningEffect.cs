@@ -28,7 +28,7 @@ public class ChainLightningEffect : EffectData
 
     private List<(GameObject from, GameObject to)> _chainLinks = new();
 
-    public override void Apply(GameObject target, AbilityTargetingData context, float multiplier = 1f)
+    public override void Apply(GameObject target, ImpactData impactData, float multiplier = 1f)
     {
         _chainLinks.Clear();
 

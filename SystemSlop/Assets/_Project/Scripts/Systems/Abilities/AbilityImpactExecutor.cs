@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class AbilityImpactExecutor
 {
-    public void ExecuteTarget(GameObject target, AbilityData ability, AbilityTargetingData targetingData)
+    public void ExecuteTarget(GameObject target, AbilityData ability, ImpactData impactData)
     {
         if (target == null)
             return;
 
         foreach (var effect in ability.effects)
         {
-            effect.Apply(target, targetingData);
+            effect.Apply(target, impactData);
         }
     }
 
-    public void ExecuteTargets(IEnumerable<GameObject> targets, AbilityData ability, AbilityTargetingData targetingData)
+    public void ExecuteTargets(IEnumerable<GameObject> targets, AbilityData ability, ImpactData impactData)
     {
         foreach (var target in targets)
         {
-            ExecuteTarget(target, ability, targetingData);
+            ExecuteTarget(target, ability, impactData);
         }
     }
 }

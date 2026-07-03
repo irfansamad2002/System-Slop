@@ -27,6 +27,11 @@ namespace Project.Systems.Combat
         {
             _impactExecutor = impactExecutor;
             _ability = ability;
+
+            _speed = _ability.deliverySettings.projectile.speed;
+            _explosionRadius = ability.impactSettings.radius;
+            _damageLayers = ability.impactSettings.targetLayers;
+            _impactVFX = ability.deliverySettings.impactVFX;
         }
 
         private void Update()

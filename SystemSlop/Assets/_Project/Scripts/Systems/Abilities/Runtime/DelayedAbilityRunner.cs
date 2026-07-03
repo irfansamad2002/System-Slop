@@ -44,8 +44,6 @@ namespace Project.Systems.Abilities
 
             yield return new WaitForSeconds(ability.deliverySettings.delay);
 
-            targetingData.impactPoint = targetingData.targetPoint;
-            targetingData.hasImpactPoint = true;
 
             _instantDelivery.Execute(user, ability, targetingData);
 

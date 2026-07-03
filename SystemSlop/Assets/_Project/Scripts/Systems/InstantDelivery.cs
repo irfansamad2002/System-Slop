@@ -41,7 +41,13 @@ public class InstantDelivery
             return;
         }
 
-        _impactExecutor.ExecuteTarget(target,ability,targetingData);
+        var impactData = new ImpactData()
+        {
+            direction = targetingData.direction,
+            impactPoint = targetingData.targetPoint
+        };
+
+        _impactExecutor.ExecuteTarget(target,ability, impactData);
     }
     private GameObject ResolveTarget(AbilityUser user, AbilityData ability, AbilityTargetingData targetingData)
     {
@@ -67,7 +73,13 @@ public class InstantDelivery
 
         var targets = AreaQuery.GetTargetsSphere(center, ability.impactSettings.radius, user.TargetLayer, user.transform);
 
-        _impactExecutor.ExecuteTargets(targets,ability,targetingData);
+        var impactData = new ImpactData()
+        {
+            direction = targetingData.direction,
+            impactPoint = targetingData.targetPoint
+        };
+
+        _impactExecutor.ExecuteTargets(targets,ability, impactData);
     }
 
     private void ExecuteConeArea(AbilityUser user, AbilityData ability, AbilityTargetingData targetingData)
@@ -86,7 +98,13 @@ public class InstantDelivery
             targetingData.direction,
             ability.impactSettings.coneAngle);
 
-        _impactExecutor.ExecuteTargets(coneTargets, ability, targetingData);
+        var impactData = new ImpactData()
+        {
+            direction = targetingData.direction,
+            impactPoint = targetingData.targetPoint
+        };
+
+        _impactExecutor.ExecuteTargets(coneTargets, ability, impactData);
     }
 
 }

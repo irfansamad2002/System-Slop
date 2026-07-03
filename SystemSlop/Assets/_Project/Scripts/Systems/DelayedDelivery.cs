@@ -10,6 +10,8 @@ public class DelayedDelivery
     {
         GameObject runnerGO = new GameObject("Delayed Ability");
 
+        
+
         var runner = runnerGO.AddComponent<DelayedAbilityRunner>();
 
         runner.Init(user, ability, targetingData, debugMaterial, instantDelivery);

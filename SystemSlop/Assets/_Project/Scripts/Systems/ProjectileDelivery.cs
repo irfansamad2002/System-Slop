@@ -22,7 +22,7 @@ public class ProjectileDelivery
 
         var projectile = projectileGO.GetComponent<Projectile>();
 
-        projectile.Init(_executor, ability );
+        projectile.Init(_executor, ability);
 
 
 

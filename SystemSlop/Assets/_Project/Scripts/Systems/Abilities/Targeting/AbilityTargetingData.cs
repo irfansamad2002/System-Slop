@@ -15,12 +15,4 @@ public struct AbilityTargetingData
 
     // Whether target point exists
     public bool hasTargetPoint;
-
-    // ==== IMPACT / RESOLUTION ====
-
-    // Final validated point used at execution time
-    public Vector3 impactPoint;
-
-    // Whether impact point has been finalized
-    public bool hasImpactPoint;
 }

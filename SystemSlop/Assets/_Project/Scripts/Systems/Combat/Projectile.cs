@@ -65,43 +65,7 @@ namespace Project.Systems.Combat
 
             _impactExecutor.ExecuteTargets(targets, _ability, impactData, _ability.deliverySettings.projectile);
 
-            //foreach (var target in targets)
-            //{
-
-            //    ApplyExplosionImpact(target, explosionCenter);
-            //}
-
         }
-
-        //private void ApplyExplosionImpact(GameObject target, Vector3 explosionCenter)
-        //{
-          
-        //    float distance = Vector3.Distance(explosionCenter, target.GetComponent<Collider>().ClosestPoint(explosionCenter));
-
-        //    if (distance <= _minDistanceThreshold)
-        //    {
-        //        distance = 0f; // treat as direct hit
-        //    }
-
-        //    float normalized = distance / _explosionRadius;
-        //    normalized = Mathf.Clamp01(normalized);
-
-        //    float falloff = Mathf.Pow(1f - normalized, .5f); // quadratic falloff
-        //    falloff = Mathf.Max(falloff, _minFalloff); // ensure minimum effect
-
-        //    var context = new AbilityTargetingData
-        //    {
-        //        targetPoint = explosionCenter, 
-        //        hasTargetPoint = true,
-        //        direction = transform.forward
-        //    };
-        //    foreach (var effect in _effects)
-        //    {
-        //        effect.Apply(target, context, falloff);
-        //    }
-                
-        //}
-
 
         private void SpawnDebugSphere(Vector3 position, float radius)
         {

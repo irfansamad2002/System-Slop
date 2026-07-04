@@ -10,13 +10,10 @@ namespace Project.Systems.Combat
     public class Projectile : MonoBehaviour
     {
         [SerializeField] private Material transparentMaterial;
-        private List<EffectData> _effects;
         private float _speed;
         private float _explosionRadius;
         private LayerMask _damageLayers;
         private GameObject _impactVFX;
-        private float _minDistanceThreshold;
-        private float _minFalloff;
 
         private bool _hasHit;
         private AbilityImpactExecutor _impactExecutor;
@@ -66,7 +63,7 @@ namespace Project.Systems.Combat
 
             var targets = AreaQuery.GetTargetsSphere(explosionCenter, _explosionRadius, _damageLayers);
 
-            _impactExecutor.ExecuteTargets(targets, _ability, impactData);
+            _impactExecutor.ExecuteTargets(targets, _ability, impactData, _ability.deliverySettings.projectile);
 
             //foreach (var target in targets)
             //{

@@ -15,7 +15,7 @@ public class DamageEffect : EffectData
             DebugHelper.WarnMissingComponent(target, nameof(Health));
             return;
         }
-
+        Debug.Log("multiplier " + multiplier);
         float finalDamage = damage * multiplier;
         health.TakeDamage(finalDamage);
         Debug.Log($"Applied {finalDamage} damage to {target.name}");

@@ -15,10 +15,5 @@ MonoBehaviour:
   prefab: {fileID: 6528202118250364702, guid: 3d49b77a03a94544ba626ca012da64dd, type: 3}
   speed: 10
   lifetime: 5
-  explosionRadius: 1
   minDistanceThreshold: 0.1
   minFalloff: 0.1
-  targetLayers:
-    serializedVersion: 2
-    m_Bits: 128
-  impactVFX: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}

@@ -32,7 +32,7 @@ The goal of this project is to create abilities that can be added, modified, and
 
 ---
 
-# Development Board
+# Development Process
 
 Project planning and task tracking:
 
@@ -71,7 +71,11 @@ Validator[AbilityValidator]
 User[AbilityUser]
 
 Delivery[Delivery Strategy]
-Impact[AbilityImpactExecutor]
+
+ImpactData[ImpactData]
+
+ImpactExecutor[AbilityImpactExecutor]
+
 Effects[Effect System]
 
 Input --> Controller
@@ -84,6 +88,7 @@ Cast -->|Confirm| AbilityCast
 AbilityCast --> Resolver
 
 Resolver --> Calculator
+
 Calculator --> TargetData
 
 TargetData --> Validator
@@ -92,9 +97,11 @@ Validator --> User
 
 User --> Delivery
 
-Delivery --> Impact
+Delivery --> ImpactData
 
-Impact --> Effects
+ImpactData --> ImpactExecutor
+
+ImpactExecutor --> Effects
 ```
 
 ---
@@ -114,9 +121,9 @@ Each system has a single responsibility within the ability pipeline.
 | AbilityTargetingAdjuster   | Adjusts targeting before validation (for example, clamping point targets to range) |
 | AbilityValidator           | Checks cooldowns and whether the requested target is valid                         |
 | Delivery Strategies        | Spawns projectile only                                                             |
-| Projectile                 | Projectile movement and collision                                                  |
+| Projectile                 | Projectile movement, collision detection, and creation of ImpactData               |
 | InstantDelivery            | Determines affected targets                                                        |
-| AbilityImpactExecutor      | Applies effects to resolved targets                                                |
+| AbilityImpactExecutor      | Resolves impacts, calculates effect multipliers, and applies effects               |
 | Effects                    | Apply gameplay outcomes                                                            |
 
 
@@ -212,8 +219,13 @@ Responsiblities include:
 * Cast confirmation validation
 
 ---
+## 6. Impact Layer
 
-## 6. Effect Layer
+Delivery systems convert AbilityTargetingData into ImpactData once an impact location has been finalized. ImpactData represents the actual gameplay impact context consumed by the effect pipeline.
+
+---
+
+## 7. Effect Layer
 
 Effects define gameplay outcomes.
 
@@ -226,8 +238,7 @@ Current examples:
 Design Rule:
 
 Effects are the only systems allowed to directly modify gameplay state.
-
-Abilities and delivery systems never directly modify health, movement speed, or combat stats.
+Effects operate only on finalized ImpactData, remaining independent of how an ability was delivered.
 
 ---
 
@@ -284,8 +295,12 @@ Demonstrates:
 # 🧩 Technical Highlights
 
 * Data-driven abilities using ScriptableObjects
+* Data-driven abilities using ScriptableObjects
+* Custom Unity Inspector with validation and conditional fields
 * Shared targeting pipeline
-* Modular delivery system
+* Separate targeting and impact runtime contexts
+* Modular delivery strategies
+* Centralized impact resolution
 * Reusable effect system
 * Instant-cast and confirm-cast support
 * Clear system ownership (single responsibility)

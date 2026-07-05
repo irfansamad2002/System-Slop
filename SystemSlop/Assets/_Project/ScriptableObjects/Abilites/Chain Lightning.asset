@@ -17,22 +17,22 @@ MonoBehaviour:
   icon: {fileID: 0}
   cooldown: 1
   targetingSettings:
-    targetingType: 2
+    targetingType: 1
     castMode: 0
     castRange: 5
-    indicatorPrefab: {fileID: 0}
+    indicatorPrefab: {fileID: 4494617534100734494, guid: e8bb9b30648bf9f4ba3f443154fb55a1, type: 3}
   deliverySettings:
     deliveryType: 0
-    projectile: {fileID: 0}
+    projectile: {fileID: 11400000, guid: 142c179459eb79f41921cb566189c0bd, type: 2}
     delay: 1
     telegraphVFX: {fileID: 0}
     impactVFX: {fileID: 0}
   impactSettings:
-    radius: 0
+    radius: 1
     areaShape: 0
     coneAngle: 90
     targetLayers:
       serializedVersion: 2
-      m_Bits: 0
+      m_Bits: 128
   effects:
   - {fileID: 11400000, guid: 60d0e922914a4a14fb29256729d93e01, type: 2}

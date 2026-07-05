@@ -1,5 +1,3 @@
-using Project.Systems.Effects;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ImpactData

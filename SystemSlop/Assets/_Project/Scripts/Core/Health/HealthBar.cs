@@ -1,4 +1,3 @@
-using Project.Core.Health;
 using UnityEngine;
 using UnityEngine.UI;
 

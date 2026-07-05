@@ -19,7 +19,7 @@ MonoBehaviour:
   targetingSettings:
     targetingType: 0
     castMode: 0
-    castRange: 0
+    castRange: 1
     indicatorPrefab: {fileID: 0}
   deliverySettings:
     deliveryType: 0

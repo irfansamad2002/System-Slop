@@ -1,12 +1,16 @@
-// TODO:
-// ChainLightningEffect currently owns:
-// - target selection
-// - chain traversal
-// - gameplay application
-// - VFX spawning
+// ARCHITECTURAL NOTE:
 //
-// Future refactor:
-// Extract ChainLightningResolver and reuse AbilityImpactExecutor.
+// ChainLightningEffect intentionally owns chain traversal,
+// nearest-target selection, and VFX playback.
+//
+// Unlike most abilities, it currently bypasses the shared
+// AbilityImpactExecutor because each chain link dynamically
+// determines its next target.
+//
+// Future investigation:
+// - Extract chain traversal into a dedicated delivery/resolver.
+// - Reuse AbilityImpactExecutor for applying gameplay effects.
+// - Keep traversal logic separate from effect application.
 
 
 using Project.Core.Health;

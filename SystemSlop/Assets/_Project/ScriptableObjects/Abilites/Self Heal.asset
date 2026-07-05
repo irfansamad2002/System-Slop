@@ -17,7 +17,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   cooldown: 1
   targetingSettings:
-    targetingType: 3
+    targetingType: 2
     castMode: 0
     castRange: 0
     indicatorPrefab: {fileID: 0}

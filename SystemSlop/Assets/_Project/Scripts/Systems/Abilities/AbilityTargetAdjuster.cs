@@ -21,7 +21,6 @@ public class AbilityTargetAdjuster
                 //Future
                 break;
             case TargetingType.Self:
-            case TargetingType.None:
             default:
                 break;
         }

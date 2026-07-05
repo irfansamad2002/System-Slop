@@ -25,7 +25,6 @@ namespace Project.Systems.Abilities.Data
 
 public enum TargetingType
 {
-    None, //    no targeting needed  ex: passive ,instant , auto-activate ability. NOT for player-aimed skills
     Point, //   picka position in world
     Target,//   pick an entity
     Self//      always yourself

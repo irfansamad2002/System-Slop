@@ -59,7 +59,6 @@ public class InstantDelivery
             case TargetingType.Self:
                 return user.gameObject;
 
-            case TargetingType.None:
             case TargetingType.Point:
             default:
                 return null;

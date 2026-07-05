@@ -17,6 +17,8 @@ public class HealEffect : EffectData
         }
 
         health.HealsUp(healAmount * multiplier);
+        Debug.Log($"Applied {healAmount} heals to {target.name}");
+
 
     }
 }

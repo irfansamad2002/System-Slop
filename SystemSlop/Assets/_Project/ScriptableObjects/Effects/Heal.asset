@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Heal
   m_EditorClassIdentifier: Assembly-CSharp::HealEffect
   effectId: HealEffect
-  healAmount: 25
+  healAmount: 8

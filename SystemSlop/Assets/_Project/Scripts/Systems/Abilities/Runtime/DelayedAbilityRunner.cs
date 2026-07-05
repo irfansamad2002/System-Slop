@@ -44,7 +44,6 @@ namespace Project.Systems.Abilities
 
             yield return new WaitForSeconds(ability.deliverySettings.delay);
 
-
             _instantDelivery.Execute(user, ability, targetingData);
 
             SpawnImpactVFX(ability, targetingData);
@@ -61,7 +60,6 @@ namespace Project.Systems.Abilities
             if (ability.deliverySettings.deliveryType != DeliveryType.Delayed) return null;
 
             if (ability.deliverySettings.telegraphVFX == null) return null;
-
             GameObject obj = Instantiate(ability.deliverySettings.telegraphVFX, context.targetPoint,Quaternion.identity);
 
             var telegraphVFX = obj.GetComponent<DelayedTelegraphVFX>();

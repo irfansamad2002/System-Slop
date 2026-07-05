@@ -13,8 +13,8 @@ public class ProjectileDelivery
 
     public void Execute(Transform firePoint, Vector3 destination, AbilityData ability)
     {
-
         Vector3 dir = (destination - firePoint.position).normalized;
+        Debug.Log(dir);
 
         var projectileGO = Object.Instantiate(ability.deliverySettings.projectile.prefab,
             firePoint.position,

@@ -41,6 +41,7 @@ namespace Project.Systems.Abilities.Runtime
         public void TryUseAbility(AbilityData ability, AbilityTargetingData targetingData)
         {
             _targetAdjuster.Adjust(firePoint, ability, ref targetingData);
+            //Debug.Log("test");
 
             if (!_validator.CanUse(this, ability, targetingData))
                 return;
@@ -51,12 +52,15 @@ namespace Project.Systems.Abilities.Runtime
 
         private void ExecuteAbility(AbilityData ability, AbilityTargetingData targetingData)
         {
+            //Debug.Log("test");
+
             switch (ability.deliverySettings.deliveryType)
             {
                 case DeliveryType.Instant:
                     _instantDelivery.Execute(this, ability, targetingData);
                     break;
                 case DeliveryType.Projectile:
+                    Debug.Log("test");
                     _projectileDelivery.Execute(firePoint, GetTargetPosition(ability, targetingData), ability);
                     break;
                 case DeliveryType.Delayed:

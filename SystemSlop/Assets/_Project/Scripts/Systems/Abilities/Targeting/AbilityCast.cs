@@ -54,6 +54,7 @@ namespace Project.Systems.Abilities.Runtime
             
            if (!_user.CanConfirmCast(_ability, _targetingData))
            {
+                Debug.Log(_targetingData.target);
                 CancelCast();
                 return;
            }

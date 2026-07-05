@@ -101,11 +101,16 @@ public class AbilityDataEditor : Editor
         var targetingType = (TargetingType)targetingTypeProp.enumValueIndex;
         var castMode = (CastMode)castModeProp.enumValueIndex;
         
+
+
         if (targetingType == TargetingType.Point ||
            targetingType == TargetingType.Target)
         {
             EditorGUILayout.PropertyField(castRangeProp);
-           
+            if (castRangeProp.floatValue <= 0)
+            {
+                EditorGUILayout.HelpBox("Cast Range should be greater than 0.", MessageType.Warning);
+            }
         }
 
         if (castMode == CastMode.Confirm)
@@ -182,6 +187,14 @@ public class AbilityDataEditor : Editor
                 break;
             default:
                 break;
+        }
+
+        var deliveryType = (DeliveryType)deliveryTypeProp.enumValueIndex;
+        if (deliveryType == DeliveryType.Projectile && areaShape == AreaShape.None)
+        {
+            EditorGUILayout.HelpBox(
+                "Projectile delivery requires an Area Shape with a valid radius.",
+                MessageType.Warning);
         }
 
         if ((areaShape == AreaShape.Cone || areaShape == AreaShape.Sphere) && radiusProp.floatValue <= 0)

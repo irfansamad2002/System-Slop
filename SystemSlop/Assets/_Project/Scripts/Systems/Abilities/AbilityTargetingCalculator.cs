@@ -1,5 +1,4 @@
 using Project.Systems.Abilities.Data;
-using UnityEngine;
 
 public class AbilityTargetingCalculator
 {
@@ -12,6 +11,7 @@ public class AbilityTargetingCalculator
 
     public AbilityTargetingData CalculateTargeting(AbilityData ability)
     {
+
         var targetingData = new AbilityTargetingData();
 
         targetingData.direction = _resolver.GetAimDirection();
@@ -28,6 +28,13 @@ public class AbilityTargetingCalculator
 
             case TargetingType.Target:
                 targetingData.target = _resolver.RaycastEnemy();
+
+                if (targetingData.target != null)
+                {
+                    targetingData.targetPoint = targetingData.target.transform.position;
+                    targetingData.hasTargetPoint = true;
+                }
+
                 break;
 
             case TargetingType.Self:

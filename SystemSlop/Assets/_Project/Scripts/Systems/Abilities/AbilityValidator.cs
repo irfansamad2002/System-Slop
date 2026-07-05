@@ -42,7 +42,6 @@ public class AbilityValidator
                 return true;
 
             case TargetingType.Self:
-            case TargetingType.None:
                 return true;
 
             default:

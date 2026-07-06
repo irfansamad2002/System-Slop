@@ -50,6 +50,16 @@ The framework separates combat into three independent concerns:
 
 This makes it easier to create new abilities by reusing existing systems instead of writing new code for every ability.
 
+# Current Features
+- Data-driven abilities using ScriptableObjects
+- Point, Target, and Self targeting
+- Instant, Projectile, Delayed, and Chain delivery
+- Confirm and Instant cast modes
+- Sphere and Cone area queries
+- Reusable gameplay effects
+- Cooldown validation
+- Custom Unity inspector with configuration validation
+
 ---
 
 # 🏗 Architecture Overview
@@ -112,19 +122,18 @@ Each system has a single responsibility within the ability pipeline.
 
 | System                     | Responsibility                                                                     |
 | -------------------------- | ------------------------------------------------------                             |
-| PlayerAbilityController    | Reads player input and starts ability flow                                         |
-| AbilityCast                | Temporary confirm-cast lifecycle                                                   |
+| PlayerAbilityController    | Reads player input and starts the ability flow                                     |
+| AbilityCast                | Manages the temporary confirm-cast lifecycle                                       |
 | AbilityTargetingCalculator | Builds AbilityTargetingData from resolver output                                   |
 | AbilityTargetingData       | Stores targeting information for the current cast                                  |
 | AbilityTargetResolver      | Raw camera/world queries                                                           |
-| AbilityUser                | Starts ability execution and cooldowns                                             |
+| AbilityUser                | Coordinates ability execution and cooldowns                                        |
 | AbilityTargetingAdjuster   | Adjusts targeting before validation (for example, clamping point targets to range) |
-| AbilityValidator           | Checks cooldowns and whether the requested target is valid                         |
-| Delivery Strategies        | Spawns projectile only                                                             |
-| Projectile                 | Projectile movement, collision detection, and creation of ImpactData               |
-| InstantDelivery            | Determines affected targets                                                        |
-| AbilityImpactExecutor      | Resolves impacts, calculates effect multipliers, and applies effects               |
-| Effects                    | Apply gameplay outcomes                                                            |
+| AbilityValidator           | Validates cooldowns and targeting before execution                                 |
+| Delivery Strategies        | Determine when and where an ability resolves (Instant, Projectile, Delayed, Chain) |
+| Projectile                 | Handles projectile movement, collision detection, and reports impact events        |
+| AbilityImpactExecutor      | Resolves impacts, calculates effect multipliers, and applies configured effects    |
+| Effects                    | Apply gameplay outcomes to affected targets                                        |
 
 
 Design Rule:
@@ -148,9 +157,9 @@ An ability defines:
 * Area Shape (None / Sphere / Cone)
 * Effect List
 
-Abilities contain configuration only.
+**Abilities contain configuration only.**
 
-They do not contain gameplay logic.
+**They do not contain gameplay logic.**
 
 ---
 
@@ -189,22 +198,12 @@ This system only exists while the player is preparing a confirm-cast ability.
 Delivery determines how an ability reaches its targets.
 
 Current delivery types:
-
-### Instant
-
-Resolves immediately.
-
-### Projectile
-
-Spawns a projectile and resolves on impact.
-
-### Delayed
-
-Waits before resolving.
-
-### Chain
-
-Transfers effects between valid targets.
+| Delivery   | Purpose                          |
+| ---------- | -------------------------------- |
+| Instant    | Resolves immediately             |
+| Projectile | Travels before resolving         |
+| Delayed    | Resolves after a delay           |
+| Chain      | Traverses between nearby targets |
 
 ---
 
@@ -295,7 +294,6 @@ Demonstrates:
 # 🧩 Technical Highlights
 
 * Data-driven abilities using ScriptableObjects
-* Data-driven abilities using ScriptableObjects
 * Custom Unity Inspector with validation and conditional fields
 * Shared targeting pipeline
 * Separate targeting and impact runtime contexts
@@ -304,6 +302,7 @@ Demonstrates:
 * Reusable effect system
 * Instant-cast and confirm-cast support
 * Clear system ownership (single responsibility)
+* Architecture stress-tested by swapping targeting, delivery and effect combinations through configuration
 
 ---
 
@@ -323,13 +322,16 @@ The primary goals are:
 
 # 🚧 Future Improvements
 
-* Buff / debuff framework
-* Status effect system
-* Animation-driven ability execution
-* Advanced cast interruption framework
-* Gameplay tags and ability requirements
-* AI integration using the same ability pipeline
+## Architecture Improvements
+* Generalize projectile impact resolution to support all AreaShapes type
+* Refactor Chain lightning travesal to reuse the shared impact pipeline
 
+## Gameplay Features
+* Buff / Debuff framework
+* Gameplay tags
+* Animation-driven abilities
+* AI Integration
+  
 ---
 
 # 📌 Summary
@@ -355,3 +357,5 @@ Many games contain abilities, cooldowns, projectiles, targeting systems, status 
 This project started as an experiment to see how a reusable combat system could be built. Along the way, it became a way to practice gameplay programming, system design, and building systems that are easy to extend.
 
 One interesting side effect is that I now analyze abilities in games differently. When playing games such as Overwatch or League of Legends, I often find myself breaking abilities down into targeting, delivery, and effect layers and thinking about how they could be implemented within a reusable framework.
+
+Building this project also reinforced the importance of separating responsibilities and validating architecture through configuration rather than only through feature implementation.

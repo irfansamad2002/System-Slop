@@ -152,6 +152,24 @@ public class AbilityDataEditor : Editor
                 EditorGUILayout.PropertyField(delayProp);
                 EditorGUILayout.PropertyField(telegraphVFXProp);
                 EditorGUILayout.PropertyField(impactVFXProp);
+                if (delayProp.floatValue <= 0f)
+                {
+                    EditorGUILayout.HelpBox(
+                        "Delay should be greater than 0 seconds.",
+                        MessageType.Warning);
+                }
+                if (telegraphVFXProp.objectReferenceValue == null)
+                {
+                    EditorGUILayout.HelpBox(
+                        "No Telegraph VFX assigned. Delayed abilities will not display a telegraph.",
+                        MessageType.Info);
+                }
+                if (impactVFXProp.objectReferenceValue == null)
+                {
+                    EditorGUILayout.HelpBox(
+                        "No Impact VFX assigned. Delayed abilities will resolve without an impact visual.",
+                        MessageType.Info);
+                }
                 break;
             default:
                 break;

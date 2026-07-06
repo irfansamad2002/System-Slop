@@ -4,6 +4,12 @@ A Unity combat framework built to explore reusable gameplay systems and combat a
 
 The goal of this project is to create abilities that can be added, modified, and combined through configuration rather than rewriting gameplay code.
 
+# Development Process
+
+Project planning and task tracking:
+
+https://trello.com/b/lMqxyECt/modular-ability-combat-framework-project
+
 ---
 
 <p align="center">
@@ -32,12 +38,21 @@ The goal of this project is to create abilities that can be added, modified, and
 
 ---
 
-# Development Process
+<p align="center">
+  <img src="SystemSlop/Media/Show Inspector changes.gif" width="350">
+</p>
 
-Project planning and task tracking:
+<p align="center">
+  Configuring abilities through ScriptableObjects. The custom inspector exposes only relevant settings and provides validation feedback for unsupported configurations.
+</p>
 
-https://trello.com/b/lMqxyECt/modular-ability-combat-framework-project
+<p align="center">
+  <img src="SystemSlop/Media/After Inspector Changes.gif" width="800">
+</p>
 
+---
+
+# 🧠 Core Idea
 ---
 
 # 🧠 Core Idea

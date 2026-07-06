@@ -20,10 +20,10 @@ MonoBehaviour:
   targetingSettings:
     targetingType: 0
     castMode: 1
-    castRange: 14.03
+    castRange: 10
     indicatorPrefab: {fileID: 4494617534100734494, guid: e8bb9b30648bf9f4ba3f443154fb55a1, type: 3}
   deliverySettings:
-    deliveryType: 2
+    deliveryType: 1
     projectile: {fileID: 11400000, guid: 142c179459eb79f41921cb566189c0bd, type: 2}
     delay: 1
     telegraphVFX: {fileID: 2291292041173185548, guid: 3defaafd10448c94190ef745ed94f77a, type: 3}
